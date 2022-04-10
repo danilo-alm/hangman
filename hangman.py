@@ -158,12 +158,14 @@ def play(tries, is_offline, has_hints):
 
 # Clears `num_of_lines` lines from console
 def clear_last_lines(num_of_lines: int) -> None:
-    for i in range(num_of_lines):
+    if num_of_lines != 0:
         # Move cursor back to previous line
         sys.stdout.write('\x1b[1A')
 
         # Clear line
         sys.stdout.write('\x1b[2K')
+    
+        return clear_last_lines(num_of_lines - 1)
 
 
 if __name__ == "__main__":
