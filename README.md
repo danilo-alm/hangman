@@ -1,7 +1,7 @@
 # Hangman
 
-A CLI hangman game\
-
+A CLI hangman game  
+  
 By default, it will use the `requests` module to fetch random words and hints. You can disable the use of `requests` module by running it with the `offline` command-line argument and disable the hints with the `no-hints` command-line argument.\
 To disable `requests` module AND play with no hints, for instance:
 ```
