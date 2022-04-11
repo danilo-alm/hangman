@@ -1,5 +1,5 @@
 import sys
-
+import os
 
 def main():
     is_offline = False
@@ -30,6 +30,7 @@ def main():
             continue
 
         try:
+            clear_console()
             play(int(tries), is_offline, has_hints)
         except KeyboardInterrupt:
             print("\n-----------------------------------")
@@ -99,10 +100,6 @@ def play(tries, is_offline, has_hints):
 
     while (tries > 0 and len(word_letters) > 0):
 
-        # Keep track of number of lines we'll have to clear on each iteration
-        # We'll increment that if we need to print more lines than expected
-        lines_to_clear = (6 if has_hints else 5)
-
         print()
         if has_hints:
             print("HINT: " + hint)
@@ -125,13 +122,11 @@ def play(tries, is_offline, has_hints):
         # Check if the letter that the user typed previously had already been used
         if letter_already_used:
             print("You have already used that letter.")
-            lines_to_clear += 1
             letter_already_used = False
 
         # Ask user for input
         while True:
             letter = input("Letter: ").lower()
-            lines_to_clear += 1
             if (len(letter) == 1 and letter.isalpha() == True):
                 break
 
@@ -145,9 +140,11 @@ def play(tries, is_offline, has_hints):
         else:
             letter_already_used = True
 
-        # Clear what we wrote
-        clear_last_lines(lines_to_clear)
+        clear_console()
 
+    # Print hint again when game has finished
+    if has_hints:
+        print("The hint was: " + hint)
     if tries > 0 and len(word_letters) == 0:
         print(f"\nCongratulations! You guessed \"{word}\" with {tries} tries left!")
     else:
@@ -156,16 +153,9 @@ def play(tries, is_offline, has_hints):
     return None
 
 
-# Clears `num_of_lines` lines from console
-def clear_last_lines(num_of_lines: int) -> None:
-    if num_of_lines != 0:
-        # Move cursor back to previous line
-        sys.stdout.write('\x1b[1A')
-
-        # Clear line
-        sys.stdout.write('\x1b[2K')
-    
-        return clear_last_lines(num_of_lines - 1)
+# Clears console
+def clear_console():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 if __name__ == "__main__":
