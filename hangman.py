@@ -142,13 +142,13 @@ def play(tries, is_offline, has_hints):
 
         clear_console()
 
-    # Print hint again when game has finished
-    if has_hints:
-        print("The hint was: " + hint)
     if tries > 0 and len(word_letters) == 0:
         print(f"\nCongratulations! You guessed \"{word}\" with {tries} tries left!")
     else:
         print(f"\n{tries} tries! You lose! The word was {word}")
+    # Print hint again when game has finished
+    if has_hints:
+        print("\nThe hint was: " + hint)
 
     return None
 
