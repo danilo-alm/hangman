@@ -21,6 +21,8 @@ int main(int argc, char *argv[])
         return 1;    
     }
 
+    srand(time(NULL));
+
     char *word = get_random_word(argc == 2 ? argv[1] : "words.txt");
     if (word == NULL) {
         fprintf(stderr, "Error reading words file.\n");
