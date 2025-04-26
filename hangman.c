@@ -11,18 +11,20 @@ short get_letter_index(char letter);
 bool check_letter(char letter, short letters[]);
 void clear_buffer();
 char* get_random_word(const char *filename);
+void print_usage(char* argv[]);
 
 int main(int argc, char *argv[])
 {
     if (argc > 2)
     {
-        printf("Usage: %s <file>\n", argv[0]);
-        return 1;
+        print_usage(argv);
+        return 1;    
     }
 
     char *word = get_random_word(argc == 2 ? argv[1] : "words.txt");
     if (word == NULL) {
         fprintf(stderr, "Error reading words file.\n");
+        print_usage(argv);
         return 1;
     }
 
@@ -152,4 +154,9 @@ char* get_random_word(const char *filename)
 
     fclose(file);
     return NULL;
+}
+
+void print_usage(char* argv[])
+{
+    printf("Usage: %s <words_file>\n", argv[0]);
 }
