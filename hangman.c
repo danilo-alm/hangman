@@ -16,11 +16,11 @@ int main(int argc, char *argv[])
 {
     if (argc > 2)
     {
-        printf("Usage: %s <tries>\n", argv[0]);
+        printf("Usage: %s <file>\n", argv[0]);
         return 1;
     }
 
-    char *word = get_random_word("words.txt");
+    char *word = get_random_word(argc == 2 ? argv[1] : "words.txt");
     if (word == NULL) {
         fprintf(stderr, "Error reading words file.\n");
         return 1;
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 
     short word_letters[ALPHABET_LEN] = { 0 };
     short used_letters[ALPHABET_LEN] = { 0 };
-    unsigned short tries = argc == 2 ? (unsigned short) atol(argv[1]) : 5;
+    short tries = 5;
 
     int i = 0;
     for (char c = word[i]; c != '\0'; c = word[++i]) {
