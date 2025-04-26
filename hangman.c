@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
     short word_letters[ALPHABET_LEN] = { 0 };
     short used_letters[ALPHABET_LEN] = { 0 };
-    short tries = argc == 2 ? atoi(argv[1]) : 5;
+    unsigned short tries = argc == 2 ? (unsigned short) atol(argv[1]) : 5;
 
     int i = 0;
     for (char c = word[i]; c != '\0'; c = word[++i]) {
