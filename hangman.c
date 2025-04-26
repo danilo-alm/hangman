@@ -32,14 +32,22 @@ int main(int argc, char *argv[])
 
     short word_letters[ALPHABET_LEN] = { 0 };
     short used_letters[ALPHABET_LEN] = { 0 };
+    short letters_remaining = 0;
     short tries = 5;
 
     int i = 0;
     for (char c = word[i]; c != '\0'; c = word[++i]) {
         short idx = get_letter_index(c);
+        if (idx == -1)
+        {
+            fprintf(stderr, "Invalid character in word: %c\n", c);
+            free(word);
+            return 1;
+        }
+
         word_letters[idx] = 1;
+        letters_remaining++;
     }
-    short letters_remaining = i;
 
     while (tries > 0 && letters_remaining > 0)
     {
@@ -96,6 +104,7 @@ int main(int argc, char *argv[])
         printf("You lost!\n");
     }
     
+    free(word);
     return 0;
 }
 
