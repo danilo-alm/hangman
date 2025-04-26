@@ -2,12 +2,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 #define ALPHABET_LEN 26
+#define MAX_WORD_LEN 100
 
 short get_letter_index(char letter);
 bool check_letter(char letter, short letters[]);
 void clear_buffer();
+char* get_random_word(const char *filename);
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +20,11 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    char word[] = "testando";
+    char *word = get_random_word("words.txt");
+    if (word == NULL) {
+        fprintf(stderr, "Error reading words file.\n");
+        return 1;
+    }
 
     short word_letters[ALPHABET_LEN] = { 0 };
     short used_letters[ALPHABET_LEN] = { 0 };
@@ -110,4 +117,39 @@ bool check_letter(char letter, short letters[])
 void clear_buffer()
 {
     while (getchar() != '\n');
+}
+
+char* get_random_word(const char *filename)
+{
+    FILE *file = fopen(filename, "r");
+    if (!file) return NULL;
+
+    char buffer[MAX_WORD_LEN];
+    int count = 0;
+    while (fgets(buffer, sizeof(buffer), file))
+        count++;
+
+    if (count == 0) {
+        fclose(file);
+        return NULL;
+    }
+
+    int target = rand() % count;
+    rewind(file);
+
+    int i = 0;
+    while (fgets(buffer, sizeof(buffer), file))
+    {
+        if (i++ == target)
+        {
+            buffer[strcspn(buffer, "\n")] = '\0';
+            char *word = malloc(strlen(buffer) + 1);
+            strcpy(word, buffer);
+            fclose(file);
+            return word;
+        }
+    }
+
+    fclose(file);
+    return NULL;
 }
