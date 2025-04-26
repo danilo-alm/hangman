@@ -97,11 +97,11 @@ int main(int argc, char *argv[])
 
     if (letters_remaining == 0)
     {
-        printf("You won!\n");
+        printf("\nYou won!\n");
     }
     else
     {
-        printf("You lost!\n");
+        printf("\nYou lost!\n");
     }
     
     free(word);
