@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 
         printf("\n\nTries remaining: %d\nLetter: ", tries);
         char c = getchar();
-        clear_buffer();
+        if (c != '\n') clear_buffer();
 
         if (check_letter(c, used_letters))
         {
