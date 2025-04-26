@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 #define ALPHABET_LEN 26
@@ -8,13 +9,19 @@ short get_letter_index(char letter);
 bool check_letter(char letter, short letters[]);
 void clear_buffer();
 
-int main(void)
+int main(int argc, char *argv[])
 {
+    if (argc > 2)
+    {
+        printf("Usage: %s <tries>\n", argv[0]);
+        return 1;
+    }
+
     char word[] = "testando";
 
     short word_letters[ALPHABET_LEN] = { 0 };
     short used_letters[ALPHABET_LEN] = { 0 };
-    short tries = 5;
+    short tries = argc == 2 ? atoi(argv[1]) : 5;
 
     int i = 0;
     for (char c = word[i]; c != '\0'; c = word[++i]) {
@@ -39,8 +46,7 @@ int main(void)
             }
         }
 
-        printf("Tries remaining: %d\n", tries);
-        printf("\nLetter: ");
+        printf("\n\nTries remaining: %d\nLetter: ", tries);
         char c = getchar();
         clear_buffer();
 
