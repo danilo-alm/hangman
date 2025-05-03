@@ -45,8 +45,10 @@ int main(int argc, char *argv[])
             return 1;
         }
 
-        word_letters[idx] = 1;
-        letters_remaining++;
+        if (word_letters[idx] == 0) {
+            word_letters[idx] = 1;
+            letters_remaining++;
+        }
     }
 
     while (tries > 0 && letters_remaining > 0)
