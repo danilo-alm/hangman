@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        printf("\nYou lost!\n");
+        printf("\nYou lost! The word was %s\n", word);
     }
     
     free(word);
