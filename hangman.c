@@ -69,6 +69,11 @@ int main(int argc, char *argv[])
 
         printf("\n\nTries remaining: %d\nLetter: ", tries);
         char c = getchar();
+        if (c == EOF) {
+            printf("\nInput ended. Exiting game.\n");
+            free(word);
+            return 0;
+        }
         if (c != '\n') clear_buffer();
 
         if (check_letter(c, used_letters))
@@ -131,7 +136,8 @@ bool check_letter(char letter, short letters[])
 
 void clear_buffer()
 {
-    while (getchar() != '\n');
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
 }
 
 char* get_random_word(const char *filename)
